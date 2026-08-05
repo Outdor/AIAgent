@@ -33,6 +33,7 @@ def main():
 
     # Create a parser object and parse th euser input.
     parser = argparse.ArgumentParser(description="Chatbot")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     args = parser.parse_args()
     # Now we can access `args.user_prompt`
@@ -49,11 +50,14 @@ def main():
     # Use the client.chat.completions.create() method to get a response from the model.
     response = client.chat.completions.create(model=model, messages=messages)
 
-    # Ouput response to the user.
-    if response.usage is not None:
-        print(f"User Prompt: {messages[0]['content']}")
-        print(f"Prompt tokens: {response.usage.prompt_tokens}")
-        print(f"Response tokens: {response.usage.completion_tokens}")
+    # Ouput response to the user if one is recieved atherwise raise an error.
+    if response is not None:
+        # If user has requested verbose responses include the Ptompt and token counts.
+        if args.verbose is True:
+            print(f"User Prompt: {messages[0]['content']}")
+            print(f"Prompt tokens: {response.usage.prompt_tokens}")
+            print(f"Response tokens: {response.usage.completion_tokens}")
+        # Print the response either way.
         print("Response:")
         print(response.choices[0].message.content)
     else:
