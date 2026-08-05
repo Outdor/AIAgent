@@ -37,8 +37,14 @@ response = client.chat.completions.create(model=model, messages=messages)
 
 ### MAIN ###
 def main():
-    print(response.choices[0].message.content)
-
+    if response.usage is not None:
+        print(f"User Prompt: {messages[0]['content']}")
+        print(f"Prompt tokens: {response.usage.prompt_tokens}")
+        print(f"Prompt tokens: {response.usage.completion_tokens}")
+        print("Response:")
+        print(response.choices[0].message.content)
+    else:
+        raise RuntimeError("invalid server response")
 
 if __name__ == "__main__":
     main()
