@@ -33,7 +33,7 @@ messages = [
         "content": "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum.",
     }
 ]
-response = client.chat.completions.create(model, messages)
+response = client.chat.completions.create(model=model, messages=messages)
 
 ### MAIN ###
 def main():
