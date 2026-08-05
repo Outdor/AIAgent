@@ -54,7 +54,7 @@ def main():
     if response is not None:
         # If user has requested verbose responses include the Ptompt and token counts.
         if args.verbose is True:
-            print(f"User Prompt: {messages[0]['content']}")
+            print(f"User prompt: {messages[0]['content']}")
             print(f"Prompt tokens: {response.usage.prompt_tokens}")
             print(f"Response tokens: {response.usage.completion_tokens}")
         # Print the response either way.
